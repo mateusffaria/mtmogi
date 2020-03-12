@@ -7,5 +7,6 @@ public interface MtmogiService {
     public List<Servidor> findAll();
     public Servidor findById(long id);
     public Servidor save(Servidor servidor);
-    public List<Servidor> findByNome(String nome);
+    public List<Servidor> findByNomeLike(String nome);
+    public List<Servidor> findByFuncaoLike(String funcao);
 }

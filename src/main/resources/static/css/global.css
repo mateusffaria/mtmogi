@@ -1,0 +1,88 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-container p{
+    text-align: center;
+    color: #F2EEED;
+    font-family: 'Ubuntu', sans-serif;
+    padding-bottom: 35px;
+    font-size: 40px;
+}
+
+.logo{
+    background-color: #007bff;
+}
+
+.logo img{
+    padding-top: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
+
+.logo-text{
+    font-family: 'Oregano', cursive;
+    font-size: 40px;
+}
+
+.icon-ajust{
+    vertical-align: middle;
+}
+
+.titulo{
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.thead-color{
+    background-color: #0A5959;
+    border: #000;
+    color: #fffeff;
+}
+
+.copyright{
+    background-color: rgba(0, 0, 0, 0.7);
+    display: block;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+}
+
+.copyright p{
+    color: #F2EEED;
+}
+
+.footer-info{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    align-content: space-between;
+    padding-bottom: 10px;
+}
+
+.contact{
+    width: 100%;
+    padding-bottom: 10px;
+    color: #F2EEED;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-info a{
+    text-decoration: none;
+    color: skyblue;
+}
+
+.footer-info a:hover{
+    color: #F2EEED;
+    transition: 0.5s;
+}

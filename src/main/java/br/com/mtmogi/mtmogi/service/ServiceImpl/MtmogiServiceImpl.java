@@ -31,8 +31,13 @@ public class MtmogiServiceImpl implements MtmogiService {
     }
 
     @Override
-    public List<Servidor> findByNome(String nome) {
-        return mRepository.findByNome(nome);
+    public List<Servidor> findByNomeLike(String nome) {
+        return mRepository.findByNomeLike(nome);
+    }
+
+    @Override
+    public List<Servidor> findByFuncaoLike(String funcao) {
+        return mRepository.findByFuncaoLike("%" + funcao + "%");
     }
     
 }

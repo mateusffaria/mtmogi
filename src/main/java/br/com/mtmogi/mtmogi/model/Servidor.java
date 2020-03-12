@@ -20,27 +20,27 @@ public class Servidor{
     @NotBlank
     private String funcao;
 
-    public Long getid() {
+    public Long getId() {
         return id;
     }
 
-    public void setid(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setnome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getfuncao() {
+    public String getFuncao() {
         return funcao;
     }
 
-    public void setfuncao(String funcao) {
+    public void setFuncao(String funcao) {
         this.funcao = funcao;
     }
 
