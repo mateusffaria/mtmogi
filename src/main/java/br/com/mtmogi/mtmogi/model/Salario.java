@@ -1,5 +1,7 @@
 package br.com.mtmogi.mtmogi.model;
 
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +23,11 @@ public class Salario{
     @NotBlank
     @NotNull
     private Long salservid;
-
+    
+    private Calendar dataAtualizacao;
+    
+    
+    //Getters and Setters
     public Long getid() {
         return id;
     }
@@ -45,5 +51,13 @@ public class Salario{
     public void setsalservid(Long salservid) {
         this.salservid = salservid;
     }
+
+	public Calendar getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Calendar dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
 
 }
