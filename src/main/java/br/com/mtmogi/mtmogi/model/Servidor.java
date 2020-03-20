@@ -1,20 +1,24 @@
 package br.com.mtmogi.mtmogi.model;
 
 
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="SERVIDOR")
 public class Servidor{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="servidor_sequence")
+	@SequenceGenerator(name = "servidor_sequence", sequenceName = "serv_seq")
     private Long id;
 
     @NotBlank
@@ -23,18 +27,21 @@ public class Servidor{
     @NotBlank
     private String funcao;
     
-    @Valid
-    @ManyToOne
-    private Salario salario = new Salario();
+    @ElementCollection
+    @OneToMany(mappedBy="servidor", targetEntity = Salario.class)
+    private List<Salario> salarios;
     
-    //Getters and Setters
+    public List<Salario> getSalarios() {
+		return salarios;
+	}
 
+	public void setSalarios(List<Salario> salarios) {
+		this.salarios = salarios;
+	}
+
+	//Getters and Setters
 	public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
