@@ -22,7 +22,7 @@ public class Salario{
    
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="salario_sequence")
-	@SequenceGenerator(name = "salario_sequence", sequenceName = "sal_seq")
+	@SequenceGenerator(name = "salario_sequence", sequenceName = "sal_seq", initialValue = 10000, allocationSize = 1)
     private Long id_sal;
 
     private BigDecimal valor;

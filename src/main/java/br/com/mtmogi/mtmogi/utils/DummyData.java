@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 
 @Component
 public class DummyData {
@@ -26,7 +26,7 @@ public class DummyData {
     @Autowired
     SalarioDAO salDAO;
 
-    @PostConstruct
+    //@PostConstruct
     public void savePosts(){
     	
     	//Instanciando listas

@@ -18,7 +18,7 @@ import javax.validation.constraints.NotBlank;
 public class Servidor{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="servidor_sequence")
-	@SequenceGenerator(name = "servidor_sequence", sequenceName = "serv_seq")
+	@SequenceGenerator(name = "servidor_sequence", sequenceName = "serv_seq", initialValue = 200000, allocationSize = 1)
     private Long id;
 
     @NotBlank
@@ -39,6 +39,12 @@ public class Servidor{
 		this.salarios = salarios;
 	}
 
+	public String teste(){
+		
+		return"funfa";
+	}
+	
+	
 	//Getters and Setters
 	public Long getId() {
         return id;
@@ -59,5 +65,6 @@ public class Servidor{
     public void setFuncao(String funcao) {
         this.funcao = funcao;
     }
+
 
 }
