@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/global.css">
     
 
-    <title>MTMogi | Todos os vereadores</title>
+    <title>MTMogi | Histórico Salarial</title>
     <link rel="shortcut icon" href="/src/favicon.svg" type="image/x-icon">
 </head>
 <body>
@@ -59,23 +59,21 @@
     </div>
 
     <div class="container">
-        <h1 class="titulo">Salários dos Servidores da Câmara</h1>
+        <h1 class="titulo">Histórico Salarial</h1>
 
         <table class="table table-striped table-hover">
             <thead class="thead-color">
               <tr>
-                <th scope="col">Histórico</th>
+                <th scope="col">Data de atualização</th>
                 <th scope="col">Nome do Servidor</th>
-                <th scope="col">Último salário</th>
+                <th scope="col">Salário</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="servidor : ${servidores}">
-                <th scope="row">
-                    <a th:href="${(#mvc.url('MC#getHistoricoSalarial').arg(0,servidor.id)).build()}"><i class="material-icons">history</i></a>
-                </th>
+              <tr th:each="salario : ${salarios}">
+                <td><span th:text="${#dates.format(salario.dataAtualizacao, 'dd/MMM/yyyy - HH:mm')}"></span></td>
                 <td><span th:text="${servidor.nome}"></span></td>
-                 <td><span th:text="${servidor.salarios[0].valor}"></span></td>
+                <td>R$ <span th:text="${salario.valor}"></span></td>
               </tr>
             </tbody>
         </table>

@@ -33,7 +33,7 @@ public class DummyData {
         List<Servidor> servidores = new ArrayList<>();
         List<Salario> salarios = new ArrayList<>();
         List<Desconto> descontos = new ArrayList<>();
-       
+        
         //Instanciando Servidores
         Servidor servidor1 = new Servidor();
         servidor1.setNome("Marcus Melo");

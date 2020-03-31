@@ -72,7 +72,7 @@
             <tbody>
               <tr th:each="servidor : ${servidores}">
                 <th scope="row">
-                    <a href="#"><i class="material-icons">history</i></a>
+                    <a th:href="${(#mvc.url('MC#getHistoricoSalarial').arg(0,servidor.id)).build()}"><i class="material-icons">history</i></a>
                 </th>
                 <td><span th:text="${servidor.nome}"></span></td>
                 <td><span th:text="${servidor.salarios[0].valor}"></span></td>
