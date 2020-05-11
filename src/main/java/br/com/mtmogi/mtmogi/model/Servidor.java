@@ -1,9 +1,15 @@
 package br.com.mtmogi.mtmogi.model;
 
+
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -11,7 +17,8 @@ import javax.validation.constraints.NotBlank;
 @Table(name="SERVIDOR")
 public class Servidor{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="servidor_sequence")
+	@SequenceGenerator(name = "servidor_sequence", sequenceName = "serv_seq", initialValue = 200000, allocationSize = 1)
     private Long id;
 
     @NotBlank
@@ -19,13 +26,28 @@ public class Servidor{
 
     @NotBlank
     private String funcao;
+    
+    @ElementCollection
+    @OneToMany(mappedBy="servidor", targetEntity = Salario.class)
+    private List<Salario> salarios;
+    
+    public List<Salario> getSalarios() {
+		return salarios;
+	}
 
-    public Long getId() {
+	public void setSalarios(List<Salario> salarios) {
+		this.salarios = salarios;
+	}
+
+	public String teste(){
+		
+		return"funfa";
+	}
+	
+	
+	//Getters and Setters
+	public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -43,5 +65,6 @@ public class Servidor{
     public void setFuncao(String funcao) {
         this.funcao = funcao;
     }
+
 
 }
