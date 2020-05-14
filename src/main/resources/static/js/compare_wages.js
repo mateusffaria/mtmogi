@@ -51,7 +51,7 @@ function getChecked(){
         	    console.log(resposta);
 
         	}).fail(function(jqXHR, textStatus ) {
-        	    console.log("Request failed: " + textStatus);
+        	    console.log("Houve erro: " + textStatus);
 
         	}).always(function() {
         	    console.log("completou");
