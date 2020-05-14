@@ -23,16 +23,40 @@ function check(){
 		
 	}
 	
-	return checkboxes;
+	return array;
 	
 }
 
-//Function to obtain the matrix of ids of the selected servers
+//Function to obtain the array with id´s of the selected servers
 function getChecked(){
 	var checkboxes = check();
 	
 	if(checkboxes.length < 2){
 		alert("Para realizar comparações é necessário selecionar ao menos dois servidores.");
+	
+	}else{
+         
+		var dados = JSON.stringify(checkboxes);
+		
+		console.log(dados);
+		
+         $.ajax({
+        	    url: "/service/compare",
+        	    type: "POST",
+        	    contentType: "application/json",
+        	    data: dados
+        	    	
+
+        	}).done(function(resposta) {
+        	    console.log(resposta);
+
+        	}).fail(function(jqXHR, textStatus ) {
+        	    console.log("Request failed: " + textStatus);
+
+        	}).always(function() {
+        	    console.log("completou");
+        	});
+		
 	}
 	
 	
