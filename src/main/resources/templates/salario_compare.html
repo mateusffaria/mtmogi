@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="PT-BR" xmlns:th="https://thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oregano:400i|Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400i&display=swap" rel="stylesheet"> 
+
+    <link rel="stylesheet" href="/css/global.css">
+    
+
+    <title>MTMogi | Prefeito e Vice</title>
+    <link rel="shortcut icon" href="/src/favicon.svg" type="image/x-icon">
+</head>
+<body>
+    <div class="logo">
+        <div class="logo-container">
+            <img src="/src/icons/logo.png" alt="logo" class="img-fluid">
+            <p>Portal da transparência</p>
+        </div>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand logo-text" href="#">MTMogi</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="#">Consultar projetos</a>
+                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Salários
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/vereadores">Vereadores</a>
+                    <a class="dropdown-item " href="/servidores/camara">Servidores da câmara</a>
+                    <a class="dropdown-item" href="/prefeito">Prefeito</a>
+                    <a class="dropdown-item" href="/servidores/prefeitura">Servidores da prefeitura</a>
+                </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pesquisas mais comuns</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Pesquise pelo nome" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+                    <i class="material-icons icon-ajust">search</i>
+                </button>
+            </form>
+            </div>
+            </nav>        
+        </div>
+    </div>
+   	<!-- Conteúdo principal da página --> 
+    <div class="container">
+	    <div class="shadow p-3 mb-5 bg-white rounded">	
+	    	<!-- Card principal -->
+	    	<div class="card text-center">
+	    		<div class="default-tab">
+		    	  <!-- Cabeçalho -->
+				  <div class="card-header">
+				  	 <a class="navbar-brand logo-text" href="#">Compara Mogi <i class="material-icons icon-ajust"></i></a>
+				  </div>
+				  <!-- Conteúdo principal do card -->
+				  <div class="card-body">
+				  <div class="default-tab">
+				  	<!-- Barra de navegação do card -->
+					<nav>	
+					  	<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			                  <a class="nav-item nav-link active" id="nav-servidores-tab" data-toggle="tab" href="#nav-servidores" role="tab" aria-controls="nav-servidores" aria-selected="true">Servidores <i class="material-icons">supervised_user_circle</i></a>
+			                  <a class="nav-item nav-link" id="nav-graficos-tab" data-toggle="tab" href="#nav-graficos" role="tab" aria-controls="nav-graficos" aria-selected="false">Gráficos <i class="material-icons">trending_up</i></a>
+			                  <a class="nav-item nav-link" id="nav-informacoes-tab" data-toggle="tab" href="#nav-informacoes" role="tab" aria-controls="nav-informacoes" aria-selected="false">Informações <i class="material-icons">info</i></a>
+			             </div>
+			         </nav>      
+		            	<!-- Conteúdo de conexão com o nav --> 	
+					    <div class="tab-content pl-3 pt-2" id="nav-tabContent">
+						    <!-- nav Servidores -->
+						    <div class="tab-pane fade show active" id="nav-servidores" role="tabpanel" aria-labelledby="nav-servidores-tab">
+							    <div class="card-deck">
+							    	
+							    	<th:block th:each="servidor : ${servidores}" >
+									  	<div class="card text-center">
+										    <div class="card-body">
+										      <h5 class="card-title"><span th:text="${servidor.funcao}">Função</span></h5>
+										      <p class="card-text"><span th:text="${servidor.nome}">Nome</span></p>
+										      <p class="card-text"><span th:text="|R$ ${servidor.salarios[0].valor}|">Salário atual R$ 1.000,00</span></p>
+										      <p class="card-text"><small class="text-muted"><a href="#"><i class="material-icons">history</i> Histórico de atualizações salariais</a></small></p>
+										    </div>
+										 </div>
+									 </th:block>		
+								 
+								 </div>
+							</div>
+							<!-- nav Gráficos-->
+						    <div class="tab-pane fade " id="nav-graficos" role="tabpanel" aria-labelledby="nav-graficos-tab">
+							    <div class="card-deck">
+								  Gráficos	
+								 </div>
+							</div>
+							<!-- nav Informações-->
+						    <div class="tab-pane fade " id="nav-informacoes" role="tabpanel" aria-labelledby="nav-informacoes-tab">
+							    <h3>Participe !</h3>
+							    
+								<p class="lead">O MtMogi oferece através de suas funcionalidades a possibilidade de se interar com facilidade sobre os assuntos referentes aos servidore públicos de seu município, aproveite esta ferramenta para comparar os salários dos servidores e se manter a par de suas atualizações salariais.</p>  
+							    
+							    <blockquote class="blockquote text-left">
+								  <p class="mb-0">A palavra política significa elevação para a participação no poder ou para a influência na sua repartição, seja no interior de um Estado ou entre os grupos humanos que nele existem.</p>
+								  <footer class="blockquote-footer">Max Weber </footer>
+								</blockquote>
+							    
+							    <blockquote class="blockquote text-right">
+								  <p class="mb-0">O maior castigo para aquele que não gostam de política é que serão governados pelos que se interessam</p>
+								  <footer class="blockquote-footer">Arnold Toynbee</footer>
+								</blockquote>
+							</div>	 
+					    </div>
+				    </div>
+				  </div>
+				  <!-- Rodapé do card -->
+				  <div class="card-footer text-muted">
+				    Exibindo comparação entre <span th:text="${#lists.size(servidores)}">> </span> servidores
+				  </div>
+			  </div>	  
+			</div>
+    	</div>
+    </div>
+   	<!-- Rodapé -->
+    <footer class="copyright">
+        <p> &copy; copyright 2020 MTMogi Group </p>
+        <div class="footer-info">
+            <div class="contact">
+                <a class="" href="#">Quem somos</a>
+            </div>
+        </div>
+    </footer>
+	
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script th:src="@{/js/compare_wages.js}"></script>
+
+</body>
+</html>

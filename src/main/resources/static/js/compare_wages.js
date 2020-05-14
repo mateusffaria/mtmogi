@@ -54,7 +54,8 @@ function getChecked(){
         	    console.log("Houve erro: " + textStatus);
 
         	}).always(function() {
-        	    console.log("completou");
+        		console.log("Completou");
+        		window.location = "/salario/comparar";
         	});
 		
 	}

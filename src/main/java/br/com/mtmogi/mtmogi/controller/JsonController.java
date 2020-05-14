@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,7 +29,9 @@ public class JsonController {
 	MtmogiServiceImpl mService;
 	
 	@RequestMapping(value = "/compare",method = RequestMethod.POST)
-	public String upload(@RequestBody String payload) {
+	public @ResponseBody ModelAndView upload(@RequestBody String payload) {
+		
+		ModelAndView mView = new ModelAndView("redirect:/vereadores");
 		
 		//Gson object instance
 		Gson gson = new Gson();
@@ -44,11 +48,9 @@ public class JsonController {
 		//Populating Server array
 		servers = mService.findServers(idServers);
 		
-		for (Servidor servidor : servers) {
-			System.out.println(servidor.getNome() + " " + servidor.getFuncao());
-		}
+		mView.addObject("servidores", servers);
 		
-		return "OK";
+		return mView;
 	}
 	
 }
