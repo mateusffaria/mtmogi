@@ -7,9 +7,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oregano:400i|Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400i&display=swap" rel="stylesheet"> 
-
     <link rel="stylesheet" href="/css/global.css">
-    
 
     <title>MTMogi | Prefeito e Vice</title>
     <link rel="shortcut icon" href="/src/favicon.svg" type="image/x-icon">
@@ -100,7 +98,10 @@
 							<!-- nav Gráficos-->
 						    <div class="tab-pane fade " id="nav-graficos" role="tabpanel" aria-labelledby="nav-graficos-tab">
 							    <div class="card-deck">
-								  Gráficos	
+								  <!-- Starter Canvas -->
+								  <canvas class="line-chart">
+								  						  
+								  </canvas>			  	
 								 </div>
 							</div>
 							<!-- nav Informações-->
@@ -139,12 +140,41 @@
             </div>
         </div>
     </footer>
-	
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script th:src="@{/js/compare_wages.js}"></script>
+	
+	<!-- Chart generation script -->
+	<script type="text/javascript">
+		//Adding graph context variable
+		var ctx = document.getElementsByClassName("line-chart");
+	
+		//Initializing the chart generation settings
+		var myBarChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        datasets: [{
+	            barPercentage: 0.5,
+	            barThickness: 6,
+	            maxBarThickness: 8,
+	            minBarLength: 2,
+	            data: [10, 20, 30, 40, 50, 60, 70]
+	        }]
+	    },
+	    options : {
+	    	    scales: {
+	    	        xAxes: [{
+	    	            gridLines: {
+	    	                offsetGridLines: true
+	    	            }
+	    	        }]
+	    	    }
+	    	}
+		});
+	</script>
 
 </body>
 </html>

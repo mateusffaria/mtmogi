@@ -4,22 +4,19 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import br.com.mtmogi.mtmogi.model.Servidor;
 import br.com.mtmogi.mtmogi.service.ServiceImpl.MtmogiServiceImpl;
-
-
-
 
 @RestController
 @RequestMapping("/service")
@@ -29,10 +26,8 @@ public class JsonController {
 	MtmogiServiceImpl mService;
 	
 	@RequestMapping(value = "/compare",method = RequestMethod.POST)
-	public @ResponseBody ModelAndView upload(@RequestBody String payload) {
-		
-		ModelAndView mView = new ModelAndView("redirect:/vereadores");
-		
+	public @ResponseBody String upload(@RequestBody String payload, HttpSession session) {
+	
 		//Gson object instance
 		Gson gson = new Gson();
 		
@@ -42,15 +37,9 @@ public class JsonController {
 		//Populating long array with defined object type
 		ArrayList<Long> idServers = gson.fromJson(payload, collectionType);
 		
-		//Server list instance
-		List<Servidor> servers = new ArrayList<Servidor>();
+		session.setAttribute("servers", idServers);
 		
-		//Populating Server array
-		servers = mService.findServers(idServers);
-		
-		mView.addObject("servidores", servers);
-		
-		return mView;
+		return "OK";
 	}
 	
 }

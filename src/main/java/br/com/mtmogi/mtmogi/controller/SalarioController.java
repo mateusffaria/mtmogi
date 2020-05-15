@@ -3,12 +3,15 @@ package br.com.mtmogi.mtmogi.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.mtmogi.mtmogi.dao.SalarioDAO;
 import br.com.mtmogi.mtmogi.model.Salario;
@@ -40,23 +43,29 @@ public class SalarioController {
     	return mView;
     }
     
-    @RequestMapping(value="/salario/comparar")
-    public ModelAndView compararSalarios() {
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value="/salario/comparar")
+    public ModelAndView compararSalarios(HttpSession session, RedirectAttributes redirectAttributes) {
     	
     	ModelAndView mView = new ModelAndView("salario_compare");
-    	
-    	ArrayList<Long> serversIds = new ArrayList<Long>();
+
     	List<Servidor> servers= new ArrayList<Servidor>();
+    	ArrayList<Long> idServers = (ArrayList<Long>) session.getAttribute("servers");
     	
-    	serversIds.add(200000L);
-    	serversIds.add(200001L);
-    	
-    	servers = mtMogi.findServers(serversIds);
-    	
-    	mView.addObject("servidores", servers);
-    	
-    	
-    	return mView;
+    	//is the list null?
+    	if(idServers != null) {
+    		
+    		servers = mtMogi.findServers(idServers);
+    		mView.addObject("servidores", servers);
+    		mView.setViewName("salario_compare");
+    		return mView;
+    		
+    	}else {
+    		
+    		redirectAttributes.addFlashAttribute("mensagem", "Desculpe, Houve algum erro na exibição dos resultados");
+    		mView.setViewName("redirect:/prefeito");
+    		return mView;
+    	}
     	
     }
 	

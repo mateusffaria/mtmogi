@@ -46,7 +46,6 @@ function getChecked(){
         	    contentType: "application/json",
         	    data: dados
         	    	
-
         	}).done(function(resposta) {
         	    console.log(resposta);
 
