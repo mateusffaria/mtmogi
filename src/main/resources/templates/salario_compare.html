@@ -148,22 +148,25 @@
 	<script th:src="@{/js/compare_wages.js}"></script>
 	
 	<!-- Chart generation script -->
-	<script type="text/javascript">
+	<script th:inline="javascript">
 		//Adding graph context variable
+		var salarios = [[${salarios}]];
+		var descontos = [[${descontos}]];
+		
 		var ctx = document.getElementsByClassName("line-chart");
-	
+		
 		//Initializing the chart generation settings
 		var myBarChart = new Chart(ctx, {
 	    type: 'bar',
 	    data: {
-	    	labels: ["Servidor 1","Servidor 2","Servidor 3","Servidor 4"],
+	    	labels: Object.keys(salarios),
 	        datasets: [{
 	        	label: "Salário",
 	            barPercentage: 0.5,
 	            barThickness: 80,
 	            maxBarThickness: 100,
 	            minBarLength: 50,
-	            data: [20000.00, 10000.00, 20000.25, 30000.75],
+	            data: Object.keys(salarios).map(function(key) {return salarios[key];}),
 	            backgroundColor: '#007bff',
 	            borderColor: '#007bff',
 	            borderWidth: 3
@@ -175,7 +178,7 @@
 	            barThickness: 80,
 	            maxBarThickness: 100,
 	            minBarLength: 50,
-	            data: [2000.00, 1000.00, 2000.25, 3000.75],
+	            data: Object.keys(descontos).map(function(key) {return descontos[key];}),
 	            backgroundColor: '#dc3545',
 	            borderColor: '#dc3545',
 	            borderWidth: 3

@@ -1,6 +1,7 @@
 package br.com.mtmogi.mtmogi.model;
 
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -11,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
+
+import br.com.mtmogi.mtmogi.utils.CalendarComparator;
 
 @Entity
 @Table(name="SERVIDOR")
@@ -31,7 +35,20 @@ public class Servidor{
     @OneToMany(mappedBy="servidor", targetEntity = Salario.class)
     private List<Salario> salarios;
     
+    @Transient
+    public Salario getSalarioAtual() {
+    	
+    	if(salarios != null) {
+    		return getSalarios().get(0);
+    	}
+    	
+		return null;
+    }
+    
     public List<Salario> getSalarios() {
+    	
+    	Collections.sort(salarios, new CalendarComparator());
+ 
 		return salarios;
 	}
 

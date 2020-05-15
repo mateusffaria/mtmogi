@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,6 +37,9 @@ public class Salario{
     
     @ElementCollection
     private List<Desconto> descontos;
+    
+    @Transient
+    private BigDecimal totalDescontos;
     
     public List<Desconto> getDescontos() {
 		return descontos;
@@ -78,5 +82,19 @@ public class Salario{
 		this.servidor = servidor;
 	}
     
+	public BigDecimal getTotalDescontos() {
+		
+		BigDecimal total = new BigDecimal(0);
+		
+		if(this.descontos != null) {
+			
+			for (Desconto desconto : this.descontos) {
+				total = total.add(desconto.getValor());
+			}
+			
+		}
+		
+		return total;
+	}
    
 }

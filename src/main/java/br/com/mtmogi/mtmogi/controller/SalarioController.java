@@ -1,7 +1,10 @@
 package br.com.mtmogi.mtmogi.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -52,11 +55,25 @@ public class SalarioController {
     	List<Servidor> servers= new ArrayList<Servidor>();
     	ArrayList<Long> idServers = (ArrayList<Long>) session.getAttribute("servers");
     	
+    	//Map with data to generated the graphic
+    	Map<String, BigDecimal> salarios = new LinkedHashMap<String, BigDecimal>();
+    	Map<String, BigDecimal> descontos = new LinkedHashMap<String, BigDecimal>();
+    	
     	//is the list null?
     	if(idServers != null) {
     		
     		servers = mtMogi.findServers(idServers);
+        	
+        	for (Servidor s : servers) {
+        		
+        		salarios.put(s.getNome(), s.getSalarioAtual().getValor());
+        		descontos.put(s.getNome(), s.getSalarioAtual().getTotalDescontos());
+    		}
+    		
+    		//servers = mtMogi.findServers(idServers);
     		mView.addObject("servidores", servers);
+    		mView.addObject("salarios", salarios);
+    		mView.addObject("descontos", descontos);
     		mView.setViewName("salario_compare");
     		return mView;
     		
