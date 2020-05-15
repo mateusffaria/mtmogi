@@ -1,5 +1,6 @@
 package br.com.mtmogi.mtmogi.service.ServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,23 @@ public class MtmogiServiceImpl implements MtmogiService {
     public List<Servidor> findByFuncaoLike(String funcao) {
         return mRepository.findByFuncaoLike("%" + funcao + "%");
     }
+    
+    public List<Servidor> findServers(ArrayList<Long> idServers){
+    
+    	List<Servidor> servers = new ArrayList<Servidor>();
+    	
+    	for (Long id : idServers) {
+			
+    		Servidor server = new Servidor();
+    		server = mRepository.findById(id).get();
+    		
+    		if(server != null) {
+    			servers.add(server);
+    		}
+		}
+    	 	
+    	return servers;
+    }
+    
     
 }
