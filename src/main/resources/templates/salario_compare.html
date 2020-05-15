@@ -156,21 +156,48 @@
 		var myBarChart = new Chart(ctx, {
 	    type: 'bar',
 	    data: {
+	    	labels: ["Servidor 1","Servidor 2","Servidor 3","Servidor 4"],
 	        datasets: [{
+	        	label: "Salário",
 	            barPercentage: 0.5,
-	            barThickness: 6,
-	            maxBarThickness: 8,
-	            minBarLength: 2,
-	            data: [10, 20, 30, 40, 50, 60, 70]
-	        }]
+	            barThickness: 80,
+	            maxBarThickness: 100,
+	            minBarLength: 50,
+	            data: [20000.00, 10000.00, 20000.25, 30000.75],
+	            backgroundColor: '#007bff',
+	            borderColor: '#007bff',
+	            borderWidth: 3
+	           
+	        	},
+	        	{
+		        label: "Descontos",
+	            barPercentage: 0.5,
+	            barThickness: 80,
+	            maxBarThickness: 100,
+	            minBarLength: 50,
+	            data: [2000.00, 1000.00, 2000.25, 3000.75],
+	            backgroundColor: '#dc3545',
+	            borderColor: '#dc3545',
+	            borderWidth: 3
+	        	}
+	        
+	        ]
 	    },
 	    options : {
+	    		responsive: true,
+	    		title:{
+	    			display: true,
+	    			fontSize: 30,
+	    			text: "Comparação salarial"
+	    		},
 	    	    scales: {
 	    	        xAxes: [{
 	    	            gridLines: {
-	    	                offsetGridLines: true
+	    	            	offset: true
 	    	            }
 	    	        }]
+		    		
+	    		
 	    	    }
 	    	}
 		});
