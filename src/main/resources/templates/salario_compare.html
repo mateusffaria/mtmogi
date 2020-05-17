@@ -88,7 +88,7 @@
 										      <h5 class="card-title"><span th:text="${servidor.funcao}">Função</span></h5>
 										      <p class="card-text"><span th:text="${servidor.nome}">Nome</span></p>
 										      <p class="card-text"><span th:text="|R$ ${servidor.salarios[0].valor}|">Salário atual R$ 1.000,00</span></p>
-										      <p class="card-text"><small class="text-muted"><a href="#"><i class="material-icons">history</i> Histórico de atualizações salariais</a></small></p>
+										      <p class="card-text"><small class="text-muted"><a th:href="${(#mvc.url('SC#getHistoricoSalarial').arg(0,servidor.id)).build()}"><i class="material-icons">history</i> Histórico de atualizações salariais</a></small></p>
 										    </div>
 										 </div>
 									 </th:block>		
