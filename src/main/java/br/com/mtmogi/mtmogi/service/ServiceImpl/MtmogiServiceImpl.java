@@ -37,8 +37,8 @@ public class MtmogiServiceImpl implements MtmogiService {
     }
 
     @Override
-    public List<Servidor> findByFuncaoLike(String funcao) {
-        return mRepository.findByFuncaoLike("%" + funcao + "%");
+    public List<Servidor> findByCargoLike(String cargo) {
+        return mRepository.findByCargoLike("%" + cargo + "%");
     }
     
     public List<Servidor> findServers(ArrayList<Long> idServers){

@@ -2,18 +2,13 @@ package br.com.mtmogi.mtmogi.model;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.List;
-
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,8 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Salario{
    
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="salario_sequence")
-	@SequenceGenerator(name = "salario_sequence", sequenceName = "sal_seq", initialValue = 10000, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_sal;
 
     private BigDecimal valor;
@@ -34,20 +28,7 @@ public class Salario{
 	@ManyToOne
     @JoinColumn(name="id")
     private Servidor servidor;
-    
-    @ElementCollection
-    private List<Desconto> descontos;
-    
-    @Transient
-    private BigDecimal totalDescontos;
-    
-    public List<Desconto> getDescontos() {
-		return descontos;
-	}
 
-	public void setDescontos(List<Desconto> descontos) {
-		this.descontos = descontos;
-	}
 
 	//Getters and Setters
 	public Long getId_sal() {
@@ -80,21 +61,6 @@ public class Salario{
 
 	public void setServidor(Servidor servidor) {
 		this.servidor = servidor;
-	}
-    
-	public BigDecimal getTotalDescontos() {
-		
-		BigDecimal total = new BigDecimal(0);
-		
-		if(this.descontos != null) {
-			
-			for (Desconto desconto : this.descontos) {
-				total = total.add(desconto.getValor());
-			}
-			
-		}
-		
-		return total;
 	}
    
 }

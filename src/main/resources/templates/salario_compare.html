@@ -20,7 +20,7 @@
         </div>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand logo-text" href="#">MTMogi</a>
+            <a class="navbar-brand logo-text" href="/prefeito">MTMogi</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -85,7 +85,7 @@
 							    	<th:block th:each="servidor : ${servidores}" >
 									  	<div class="card text-center">
 										    <div class="card-body">
-										      <h5 class="card-title"><span th:text="${servidor.funcao}">Função</span></h5>
+										      <h5 class="card-title"><span th:text="${servidor.cargo}">Função</span></h5>
 										      <p class="card-text"><span th:text="${servidor.nome}">Nome</span></p>
 										      <p class="card-text"><span th:text="|R$ ${servidor.salarios[0].valor}|">Salário atual R$ 1.000,00</span></p>
 										      <p class="card-text"><small class="text-muted"><a th:href="${(#mvc.url('SC#getHistoricoSalarial').arg(0,servidor.id)).build()}"><i class="material-icons">history</i> Histórico de atualizações salariais</a></small></p>

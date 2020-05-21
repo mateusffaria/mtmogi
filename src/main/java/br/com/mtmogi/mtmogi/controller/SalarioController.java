@@ -65,9 +65,7 @@ public class SalarioController {
     		servers = mtMogi.findServers(idServers);
         	
         	for (Servidor s : servers) {
-        		
         		salarios.put(s.getNome(), s.getSalarioAtual().getValor());
-        		descontos.put(s.getNome(), s.getSalarioAtual().getTotalDescontos());
     		}
     		
     		//servers = mtMogi.findServers(idServers);

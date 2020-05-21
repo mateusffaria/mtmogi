@@ -27,7 +27,7 @@ public class MtmogiController {
     @RequestMapping(value="/prefeito", method=RequestMethod.GET)
     public ModelAndView getServidores() {
         ModelAndView mView = new ModelAndView("prefeito");
-        List<Servidor> servidores = mtMogi.findByFuncaoLike("Prefeito");
+        List<Servidor> servidores = mtMogi.findByCargoLike("PREFEITO");
         
         for (Servidor servidor : servidores) {
         	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
@@ -43,7 +43,7 @@ public class MtmogiController {
     @RequestMapping(value="/vereadores", method=RequestMethod.GET)
     public ModelAndView getVereadores() {
         ModelAndView mView = new ModelAndView("vereadores");
-        List<Servidor> servidores = mtMogi.findByFuncaoLike("Vereador");
+        List<Servidor> servidores = mtMogi.findByCargoLike("VEREADOR");
         
         for (Servidor servidor : servidores) {
         	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
@@ -60,7 +60,7 @@ public class MtmogiController {
     @RequestMapping(value="/servidores/prefeitura", method=RequestMethod.GET)
     public ModelAndView getServidoresPrefeitura() {
         ModelAndView mView = new ModelAndView("servidoresPrefeitura");
-        List<Servidor> servidores = mtMogi.findByFuncaoLike("Servidor-Prefeitura");
+        List<Servidor> servidores = mtMogi.findAll();
         
         for (Servidor servidor : servidores) {
         	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
@@ -77,7 +77,7 @@ public class MtmogiController {
     @RequestMapping(value="/servidores/camara", method=RequestMethod.GET)
     public ModelAndView getServidoresCamara() {
         ModelAndView mView = new ModelAndView("servidoresCamara");
-        List<Servidor> servidores = mtMogi.findByFuncaoLike("Servidor-Camara");
+        List<Servidor> servidores = mtMogi.findByCargoLike("Servidor-Camara");
         
         for (Servidor servidor : servidores) {
         	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
