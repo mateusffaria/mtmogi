@@ -62,13 +62,6 @@ public class MtmogiController {
         ModelAndView mView = new ModelAndView("servidoresPrefeitura");
         List<Servidor> servidores = mtMogi.findAll();
         
-        for (Servidor servidor : servidores) {
-        	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
-        	List<Salario>salariosOrdenados;
-        	salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
-        	servidor.setSalarios(salariosOrdenados);
-		}
-        
         mView.addObject("servidores", servidores);
 
         return mView;
