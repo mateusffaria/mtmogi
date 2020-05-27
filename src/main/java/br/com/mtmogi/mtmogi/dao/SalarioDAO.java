@@ -58,7 +58,7 @@ public class SalarioDAO {
 
 	public List<SalarioDesconto> getAllGrossIncoming(Long id) {
 		return em.createQuery(
-				"SELECT s" + "FROM SalarioDesconto s" + "WHERE s.servidor.id = :id" + "AND s.tipo = 'RENDIMENTOS'",
+				"SELECT s" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id " + "AND s.tipo = 'RENDIMENTOS'",
 				SalarioDesconto.class).setParameter("id", id).getResultList();
 	}
 

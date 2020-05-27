@@ -86,3 +86,12 @@ body{
     color: #F2EEED;
     transition: 0.5s;
 }
+
+.subtitulo{
+	text-align: center;
+	font-size: 16px;
+}
+
+.nomeCenter{
+	text-align: center;
+}

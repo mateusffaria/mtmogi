@@ -29,10 +29,10 @@ public class MtmogiController {
         List<Servidor> servidores = mtMogi.findByCargoLike("PREFEITO");
         
         for (Servidor servidor : servidores) {
-        	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
-        	List<SalarioDesconto>salariosOrdenados;
-        	salariosOrdenados = DAOSalario.getAllGrossIncoming(servidor.getId());
-        	servidor.setSalarios(salariosOrdenados);
+        	servidor.setSalarios(DAOSalario.getAllGrossIncoming(servidor.getId()));
+        	for(SalarioDesconto vencimento : servidor.getSalarios()) {
+        		
+        	}
 		}
         
         
@@ -61,13 +61,6 @@ public class MtmogiController {
     public ModelAndView getServidoresPrefeitura() {
         ModelAndView mView = new ModelAndView("servidoresPrefeitura");
         List<Servidor> servidores = mtMogi.findAll();
-        
-        for (Servidor servidor : servidores) {
-        	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
-        	List<SalarioDesconto>salariosOrdenados;
-        	salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
-        	servidor.setSalarios(salariosOrdenados);
-		}
         
         mView.addObject("servidores", servidores);
 
