@@ -86,3 +86,15 @@ body{
     color: #F2EEED;
     transition: 0.5s;
 }
+
+.center{
+	text-align: center;
+}
+
+.right{
+	text-align: right;
+}
+
+.show-later{
+	display: none;
+}
