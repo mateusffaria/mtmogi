@@ -5,6 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ServidorDTO {
-	private String rgf, nome, cargo, rendimentos;
+
+public class SalarioDescontosDTO {
+
+	private String nome, tipo, regime, referencia, valor;
 }

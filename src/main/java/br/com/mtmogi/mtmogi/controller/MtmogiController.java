@@ -2,16 +2,15 @@ package br.com.mtmogi.mtmogi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import br.com.mtmogi.mtmogi.dao.SalarioDAO;
-import br.com.mtmogi.mtmogi.model.Salario;
+import br.com.mtmogi.mtmogi.model.SalarioDesconto;
 import br.com.mtmogi.mtmogi.model.Servidor;
 import br.com.mtmogi.mtmogi.service.MtmogiService;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -31,10 +30,11 @@ public class MtmogiController {
         
         for (Servidor servidor : servidores) {
         	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
-        	List<Salario>salariosOrdenados;
-        	salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
+        	List<SalarioDesconto>salariosOrdenados;
+        	salariosOrdenados = DAOSalario.getAllGrossIncoming(servidor.getId());
         	servidor.setSalarios(salariosOrdenados);
 		}
+        
         
         mView.addObject("servidores", servidores);
         return mView;
@@ -47,7 +47,7 @@ public class MtmogiController {
         
         for (Servidor servidor : servidores) {
         	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
-        	List<Salario>salariosOrdenados;
+        	List<SalarioDesconto>salariosOrdenados;
         	salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
         	servidor.setSalarios(salariosOrdenados);
 		}
@@ -64,7 +64,7 @@ public class MtmogiController {
         
         for (Servidor servidor : servidores) {
         	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
-        	List<Salario>salariosOrdenados;
+        	List<SalarioDesconto>salariosOrdenados;
         	salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
         	servidor.setSalarios(salariosOrdenados);
 		}
@@ -81,7 +81,7 @@ public class MtmogiController {
         
         for (Servidor servidor : servidores) {
         	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
-        	List<Salario>salariosOrdenados;
+        	List<SalarioDesconto>salariosOrdenados;
         	salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
         	servidor.setSalarios(salariosOrdenados);
 		}

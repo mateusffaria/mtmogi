@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import br.com.mtmogi.mtmogi.dao.SalarioDAO;
-import br.com.mtmogi.mtmogi.model.Salario;
+import br.com.mtmogi.mtmogi.model.SalarioDesconto;
 import br.com.mtmogi.mtmogi.model.Servidor;
 import br.com.mtmogi.mtmogi.service.ServiceImpl.MtmogiServiceImpl;
 
@@ -36,7 +33,7 @@ public class SalarioController {
     	Servidor servidor = new Servidor();
     	
     	servidor = mtMogi.findById(id);
-    	List<Salario>salarios = new ArrayList<Salario>();
+    	List<SalarioDesconto>salarios = new ArrayList<SalarioDesconto>();
     	salarios = DAOSalario.getAllSalaryOfAServer(id);
     	
     	mView.addObject("servidor", servidor);
