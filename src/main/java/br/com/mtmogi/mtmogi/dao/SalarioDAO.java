@@ -62,4 +62,10 @@ public class SalarioDAO {
 				SalarioDesconto.class).setParameter("id", id).getResultList();
 	}
 
+	public List<SalarioDesconto> getAllDiscountSalary(Long id) {
+		return em.createQuery(
+				"SELECT s" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id " + "AND s.tipo like '%DESCONTO%'",
+				SalarioDesconto.class).setParameter("id", id).getResultList();
+	}
+
 }

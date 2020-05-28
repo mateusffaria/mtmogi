@@ -11,76 +11,88 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
-
 
 @Controller
 public class MtmogiController {
 
-    @Autowired
-    MtmogiService mtMogi;
-    
-    @Autowired
-    SalarioDAO DAOSalario; 
+	@Autowired
+	MtmogiService mtMogi;
 
-    @RequestMapping(value="/prefeito", method=RequestMethod.GET)
-    public ModelAndView getServidores() {
-        ModelAndView mView = new ModelAndView("prefeito");
-        List<Servidor> servidores = mtMogi.findByCargoLike("PREFEITO");
-        
-        for (Servidor servidor : servidores) {
-        	servidor.setSalarios(DAOSalario.getAllGrossIncoming(servidor.getId()));
-        	for(SalarioDesconto vencimento : servidor.getSalarios()) {
-        		
-        	}
+	@Autowired
+	SalarioDAO DAOSalario;
+
+	/**
+	 * @return
+	 */
+	@RequestMapping(value = "/prefeito", method = RequestMethod.GET)
+	public ModelAndView getServidores() {
+		ModelAndView mView = new ModelAndView("prefeito");
+		List<Servidor> servidores = mtMogi.findByCargoLike("PREFEITO");
+
+		for (Servidor servidor : servidores) {
+			List<SalarioDesconto> salarioFinal = new ArrayList<SalarioDesconto>();
+			SalarioDesconto salario = new SalarioDesconto();
+			servidor.setSalarios(DAOSalario.getAllGrossIncoming(servidor.getId()));
+			
+			double somatoria = servidor.getSalarios().stream().map(SalarioDesconto::getValor)
+					.mapToDouble(BigDecimal::doubleValue).sum();
+
+			salario.setValor(new BigDecimal(somatoria).setScale(2, RoundingMode.HALF_DOWN));
+			salarioFinal.add(salario);
+			servidor.setSalarios(salarioFinal);
+			
 		}
-        
-        
-        mView.addObject("servidores", servidores);
-        return mView;
-    }
-    
-    @RequestMapping(value="/vereadores", method=RequestMethod.GET)
-    public ModelAndView getVereadores() {
-        ModelAndView mView = new ModelAndView("vereadores");
-        List<Servidor> servidores = mtMogi.findByCargoLike("VEREADOR");
-        
-        for (Servidor servidor : servidores) {
-        	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
-        	List<SalarioDesconto>salariosOrdenados;
-        	salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
-        	servidor.setSalarios(salariosOrdenados);
+
+		mView.addObject("servidores", servidores);
+		return mView;
+	}
+
+	@RequestMapping(value = "/vereadores", method = RequestMethod.GET)
+	public ModelAndView getVereadores() {
+		ModelAndView mView = new ModelAndView("vereadores");
+		List<Servidor> servidores = mtMogi.findByCargoLike("VEREADOR");
+
+		for (Servidor servidor : servidores) {
+			// Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o
+			// mais atual.
+			List<SalarioDesconto> salariosOrdenados;
+			salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
+			servidor.setSalarios(salariosOrdenados);
 		}
-        
-        mView.addObject("servidores", servidores);
 
-        return mView;
-    }
-    
-    @RequestMapping(value="/servidores/prefeitura", method=RequestMethod.GET)
-    public ModelAndView getServidoresPrefeitura() {
-        ModelAndView mView = new ModelAndView("servidoresPrefeitura");
-        List<Servidor> servidores = mtMogi.findAll();
-        
-        mView.addObject("servidores", servidores);
+		mView.addObject("servidores", servidores);
 
-        return mView;
-    }    
+		return mView;
+	}
 
-    @RequestMapping(value="/servidores/camara", method=RequestMethod.GET)
-    public ModelAndView getServidoresCamara() {
-        ModelAndView mView = new ModelAndView("servidoresCamara");
-        List<Servidor> servidores = mtMogi.findByCargoLike("Servidor-Camara");
-        
-        for (Servidor servidor : servidores) {
-        	//Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o mais atual.
-        	List<SalarioDesconto>salariosOrdenados;
-        	salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
-        	servidor.setSalarios(salariosOrdenados);
+	@RequestMapping(value = "/servidores/prefeitura", method = RequestMethod.GET)
+	public ModelAndView getServidoresPrefeitura() {
+		ModelAndView mView = new ModelAndView("servidoresPrefeitura");
+		List<Servidor> servidores = mtMogi.findAll();
+
+		mView.addObject("servidores", servidores);
+
+		return mView;
+	}
+
+	@RequestMapping(value = "/servidores/camara", method = RequestMethod.GET)
+	public ModelAndView getServidoresCamara() {
+		ModelAndView mView = new ModelAndView("servidoresCamara");
+		List<Servidor> servidores = mtMogi.findByCargoLike("Servidor-Camara");
+
+		for (Servidor servidor : servidores) {
+			// Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o
+			// mais atual.
+			List<SalarioDesconto> salariosOrdenados;
+			salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
+			servidor.setSalarios(salariosOrdenados);
 		}
-        
-        mView.addObject("servidores", servidores);
- 
-        return mView;
-    }
+
+		mView.addObject("servidores", servidores);
+
+		return mView;
+	}
 }

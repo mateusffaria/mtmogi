@@ -22,63 +22,67 @@ import br.com.mtmogi.mtmogi.service.ServiceImpl.MtmogiServiceImpl;
 public class SalarioController {
 
 	@Autowired
-    MtmogiServiceImpl mtMogi;
-    
-    @Autowired
-    SalarioDAO DAOSalario;
-	
-    @RequestMapping(value="/historico/{id}",method=RequestMethod.GET)
-    public ModelAndView getHistoricoSalarial(@PathVariable("id") Long id) {
-    	ModelAndView mView = new ModelAndView("historico_salarial");
-    	Servidor servidor = new Servidor();
-    	
-    	servidor = mtMogi.findById(id);
-    	List<SalarioDesconto>salarios = new ArrayList<SalarioDesconto>();
-    	salarios = DAOSalario.getAllSalaryOfAServer(id);
-    	
-    	mView.addObject("servidor", servidor);
-    	mView.addObject("salarios", salarios);
-    	
-    	
-    	return mView;
-    }
-    
-    @SuppressWarnings("unchecked")
-	@RequestMapping(value="/salario/comparar")
-    public ModelAndView compararSalarios(HttpSession session, RedirectAttributes redirectAttributes) {
-    	
-    	ModelAndView mView = new ModelAndView("salario_compare");
+	MtmogiServiceImpl mtMogi;
 
-    	List<Servidor> servers= new ArrayList<Servidor>();
-    	ArrayList<Long> idServers = (ArrayList<Long>) session.getAttribute("servers");
-    	
-    	//Map with data to generated the graphic
-    	Map<String, BigDecimal> salarios = new LinkedHashMap<String, BigDecimal>();
-    	Map<String, BigDecimal> descontos = new LinkedHashMap<String, BigDecimal>();
-    	
-    	//is the list null?
-    	if(idServers != null) {
-    		
-    		servers = mtMogi.findServers(idServers);
-        	
-        	for (Servidor s : servers) {
-        		salarios.put(s.getNome(), s.getSalarioAtual().getValor());
-    		}
-    		
-    		//servers = mtMogi.findServers(idServers);
-    		mView.addObject("servidores", servers);
-    		mView.addObject("salarios", salarios);
-    		mView.addObject("descontos", descontos);
-    		mView.setViewName("salario_compare");
-    		return mView;
-    		
-    	}else {
-    		
-    		redirectAttributes.addFlashAttribute("mensagem", "Desculpe, Houve algum erro na exibição dos resultados");
-    		mView.setViewName("redirect:/prefeito");
-    		return mView;
-    	}
-    	
-    }
-	
+	@Autowired
+	SalarioDAO DAOSalario;
+
+	@RequestMapping(value = "/historico/{id}", method = RequestMethod.GET)
+	public ModelAndView getHistoricoSalarial(@PathVariable("id") Long id) {
+		ModelAndView mView = new ModelAndView("historico_salarial");
+		Servidor servidor = new Servidor();
+
+		servidor = mtMogi.findById(id);
+		List<SalarioDesconto> salarios = new ArrayList<SalarioDesconto>();
+		salarios = DAOSalario.getAllSalaryOfAServer(id);
+
+		mView.addObject("servidor", servidor);
+		mView.addObject("salarios", salarios);
+
+		return mView;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/salario/comparar")
+	public ModelAndView compararSalarios(HttpSession session, RedirectAttributes redirectAttributes) {
+
+		ModelAndView mView = new ModelAndView("salario_compare");
+
+		List<Servidor> servers = new ArrayList<Servidor>();
+		ArrayList<Long> idServers = (ArrayList<Long>) session.getAttribute("servers");
+
+		// Map with data to generated the graphic
+		Map<String, BigDecimal> salarios = new LinkedHashMap<String, BigDecimal>();
+		Map<String, Double> descontos = new LinkedHashMap<String, Double>();
+
+		// is the list null?
+		if (idServers != null) {
+
+			servers = mtMogi.findServers(idServers);
+
+			for (Servidor s : servers) {
+				salarios.put(s.getNome(), s.getSalarioAtual().getValor());
+			}
+
+			for (Servidor s : servers) {
+				descontos.put(s.getNome(), DAOSalario.getAllDiscountSalary(s.getId()).stream()
+						.map(SalarioDesconto::getValor).mapToDouble(BigDecimal::doubleValue).sum());
+			}
+
+			// servers = mtMogi.findServers(idServers);
+			mView.addObject("servidores", servers);
+			mView.addObject("salarios", salarios);
+			mView.addObject("descontos", descontos);
+			mView.setViewName("salario_compare");
+			return mView;
+
+		} else {
+
+			redirectAttributes.addFlashAttribute("mensagem", "Desculpe, Houve algum erro na exibição dos resultados");
+			mView.setViewName("redirect:/prefeito");
+			return mView;
+		}
+
+	}
+
 }
