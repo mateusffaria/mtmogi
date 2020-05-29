@@ -92,6 +92,14 @@ body{
 	font-size: 16px;
 }
 
-.nomeCenter{
+.center{
 	text-align: center;
+}
+
+.right{
+	text-align: right;
+}
+
+.show-later{
+	display: none;
 }

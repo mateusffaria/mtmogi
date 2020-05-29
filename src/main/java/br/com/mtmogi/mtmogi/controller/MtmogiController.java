@@ -78,18 +78,10 @@ public class MtmogiController {
 		return mView;
 	}
 
-	@RequestMapping(value = "/servidores/camara", method = RequestMethod.GET)
-	public ModelAndView getServidoresCamara() {
-		ModelAndView mView = new ModelAndView("servidoresCamara");
-		List<Servidor> servidores = mtMogi.findByCargoLike("Servidor-Camara");
-
-		for (Servidor servidor : servidores) {
-			// Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o
-			// mais atual.
-			List<SalarioDesconto> salariosOrdenados;
-			salariosOrdenados = DAOSalario.getAllSalaryOfAServer(servidor.getId());
-			servidor.setSalarios(salariosOrdenados);
-		}
+    @RequestMapping(value="/servidores/camara", method=RequestMethod.GET)
+    public ModelAndView getServidoresCamara() {
+        ModelAndView mView = new ModelAndView("servidoresCamara");
+        List<Servidor> servidores = mtMogi.findByCargoLike("Servidor-Camara");
 
 		mView.addObject("servidores", servidores);
 
