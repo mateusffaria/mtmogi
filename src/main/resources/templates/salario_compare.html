@@ -193,14 +193,22 @@
 	    			fontSize: 30,
 	    			text: "Comparação salarial"
 	    		},
-	    	    scales: {
+	    		scales: {
 	    	        xAxes: [{
 	    	            gridLines: {
 	    	            	offset: true
 	    	            }
+	    	        }],
+	    	        yAxes: [{
+	    	            gridLines: {
+	    	            	offset: true
+	    	            },
+		    	        ticks: {
+		                       beginAtZero: true	
+		    	        }
+	    	        
 	    	        }]
 		    		
-	    		
 	    	    }
 	    	}
 		});
