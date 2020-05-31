@@ -52,7 +52,7 @@ public class SalarioController {
 		ArrayList<Long> idServers = (ArrayList<Long>) session.getAttribute("servers");
 
 		// Map with data to generated the graphic
-		Map<String, BigDecimal> salarios = new LinkedHashMap<String, BigDecimal>();
+		Map<String, Double> salarios = new LinkedHashMap<String, Double>();
 		Map<String, Double> descontos = new LinkedHashMap<String, Double>();
 
 		// is the list null?
@@ -61,12 +61,13 @@ public class SalarioController {
 			servers = mtMogi.findServers(idServers);
 
 			for (Servidor s : servers) {
-				salarios.put(s.getNome(), s.getSalarioAtual().getValor());
+				salarios.put(s.getNome(),
+						DAOSalario.getAllGrossIncoming(s.getId()).stream().mapToDouble(BigDecimal::doubleValue).sum());
 			}
 
 			for (Servidor s : servers) {
 				descontos.put(s.getNome(), DAOSalario.getAllDiscountSalary(s.getId()).stream()
-						.map(SalarioDesconto::getValor).mapToDouble(BigDecimal::doubleValue).sum());
+						.mapToDouble(BigDecimal::doubleValue).sum());
 			}
 
 			// servers = mtMogi.findServers(idServers);

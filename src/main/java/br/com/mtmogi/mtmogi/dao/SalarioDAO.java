@@ -1,7 +1,7 @@
 package br.com.mtmogi.mtmogi.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -56,16 +56,14 @@ public class SalarioDAO {
 
 	}
 
-	public List<SalarioDesconto> getAllGrossIncoming(Long id) {
-		return em.createQuery(
-				"SELECT s" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id " + "AND s.tipo = 'RENDIMENTOS'",
-				SalarioDesconto.class).setParameter("id", id).getResultList();
+	public List<BigDecimal> getAllGrossIncoming(Long id) {
+		return em.createQuery("SELECT SUM(s.valor) as valor" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id "
+				+ "AND s.tipo like '%RENDIMENTO%'", BigDecimal.class).setParameter("id", id).getResultList();
 	}
 
-	public List<SalarioDesconto> getAllDiscountSalary(Long id) {
-		return em.createQuery(
-				"SELECT s" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id " + "AND s.tipo like '%DESCONTO%'",
-				SalarioDesconto.class).setParameter("id", id).getResultList();
+	public List<BigDecimal> getAllDiscountSalary(Long id) {
+		return em.createQuery("SELECT SUM(s.valor) as valor" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id "
+				+ "AND s.tipo like '%DESCONTO%'", BigDecimal.class).setParameter("id", id).getResultList();
 	}
 
 }

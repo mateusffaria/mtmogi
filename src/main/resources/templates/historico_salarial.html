@@ -64,9 +64,10 @@
 		<p class="subtitulo" th:text="${#dates.format(salarios.get(0).dataAtualizacao, 'dd/MMM/yyyy - HH:mm')}"></p>
         <table class="table table-striped table-hover">
             <thead class="thead-color">
-           	  <th scope="col" class="bg-primary center" colspan="4" ><span th:text="${servidor.nome}"></span></th>
+           	  <th scope="col" class="bg-primary center" colspan="5" ><span th:text="${servidor.nome}"></span></th>
               <tr class="bg-primary" >
                 <th scope="col">Regime</th>
+                <th scope="col">Tipo</th>
                 <th scope="col">Descrição</th>
                 <th scope="col">Valor</th>
                 <th scope="col">Mês de referência</th>
@@ -75,6 +76,7 @@
             <tbody>
               <tr th:each="salario : ${salarios}">
                 <td><span th:text="${salario.regime}"></span></td>
+                <td><span th:text="${salario.tipo}"></span></td>
                 <td><span th:text="${salario.descricao}"></span></td>
                 <td>R$ <span th:text="${salario.valor}"></span></td>
                 <td><span th:text="${salario.referencia}"></span></td>

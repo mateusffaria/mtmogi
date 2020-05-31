@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name="SERVIDOR")
 public class Servidor{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotBlank
