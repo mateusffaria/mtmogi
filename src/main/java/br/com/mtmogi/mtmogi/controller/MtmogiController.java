@@ -6,6 +6,8 @@ import br.com.mtmogi.mtmogi.dao.SalarioDAO;
 import br.com.mtmogi.mtmogi.model.SalarioDesconto;
 import br.com.mtmogi.mtmogi.model.Servidor;
 import br.com.mtmogi.mtmogi.service.MtmogiService;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -61,6 +63,11 @@ public class MtmogiController {
 		mView.addObject("servidores", servidores);
 
 		return mView;
+	}
+	
+	@GetMapping(value = "/quem_somos")
+	private String quemSomos() {
+		return "quem_somos";
 	}
 
 	private void salarioBrutoServidores(List<Servidor> servidores) {
