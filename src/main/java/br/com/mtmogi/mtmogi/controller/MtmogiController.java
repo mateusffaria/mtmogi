@@ -65,8 +65,6 @@ public class MtmogiController {
 
 	private void salarioBrutoServidores(List<Servidor> servidores) {
 		for (Servidor servidor : servidores) {
-			// Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o
-			// mais atual.
 			List<SalarioDesconto> salariosOrdenados = new ArrayList<>();
 			SalarioDesconto salarioBruto = new SalarioDesconto();
 			salarioBruto.setValor(DAOSalario.getAllGrossIncoming(servidor.getId()).get(0));

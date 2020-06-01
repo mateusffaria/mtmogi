@@ -57,13 +57,19 @@ public class SalarioDAO {
 	}
 
 	public List<BigDecimal> getAllGrossIncoming(Long id) {
-		return em.createQuery("SELECT SUM(s.valor) as valor" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id "
-				+ "AND s.tipo like '%RENDIMENTO%'", BigDecimal.class).setParameter("id", id).getResultList();
+		return em
+				.createQuery("SELECT SUM(s.valor) as valor" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id "
+						+ "AND s.tipo like '%RENDIMENTO%' AND s.referencia = "
+						+ "(SELECT referencia_atual FROM Configuracao c WHERE c.id = c.id )", BigDecimal.class)
+				.setParameter("id", id).getResultList();
 	}
 
 	public List<BigDecimal> getAllDiscountSalary(Long id) {
-		return em.createQuery("SELECT SUM(s.valor) as valor" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id "
-				+ "AND s.tipo like '%DESCONTO%'", BigDecimal.class).setParameter("id", id).getResultList();
+		return em
+				.createQuery("SELECT SUM(s.valor) as valor" + " FROM SalarioDesconto s " + "WHERE s.servidor.id = :id "
+						+ "AND s.tipo like '%DESCONTO%' AND s.referencia = "
+						+ "(SELECT referencia_atual FROM Configuracao c WHERE c.id = c.id )", BigDecimal.class)
+				.setParameter("id", id).getResultList();
 	}
 
 }

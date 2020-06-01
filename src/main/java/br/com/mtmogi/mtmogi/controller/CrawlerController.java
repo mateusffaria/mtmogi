@@ -110,12 +110,8 @@ public class CrawlerController {
 		  GeneralJsonInfoSalario generalInfoDeta =
 		  jsonDetalhamento.fromJson(detalhamentoSalario, GeneralJsonInfoSalario.class);
 		  
-		  Configuracao configRef = new Configuracao(); SimpleDateFormat conversaoRef =
-		  new SimpleDateFormat("MMM/yyyy"); Calendar referencia =
-		  Calendar.getInstance();
-		  
-		  referencia.setTime(conversaoRef.parse(generalInfoDeta.referencia));
-		  configRef.setReferencia_atual(referencia);
+		  Configuracao configRef = new Configuracao();
+		  configRef.setReferencia_atual(generalInfoDeta.referencia);
 		 
 		
 		if(configuracaoRepositorio.findAll().isEmpty()) {
