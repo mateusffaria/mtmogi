@@ -48,11 +48,4 @@ public class Servidor{
     	
 		return null;
     }
-    
-	public String teste(){
-		
-		return"funfa";
-	}
-
-
 }

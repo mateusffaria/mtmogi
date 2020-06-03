@@ -30,7 +30,7 @@ public class MtmogiController {
 	@RequestMapping(value = "/prefeito", method = RequestMethod.GET)
 	public ModelAndView getServidores() {
 		ModelAndView mView = new ModelAndView("prefeito");
-		List<Servidor> servidores = mtMogi.findByCargoLike("PREFEITO");
+		Iterable<Servidor> servidores = mtMogi.findByCargoLike("PREFEITO");
 
 		for (Servidor servidor : servidores) {
 			List<SalarioDesconto> salarioFinal = new ArrayList<SalarioDesconto>();
@@ -53,7 +53,7 @@ public class MtmogiController {
 	@RequestMapping(value = "/vereadores", method = RequestMethod.GET)
 	public ModelAndView getVereadores() {
 		ModelAndView mView = new ModelAndView("vereadores");
-		List<Servidor> servidores = mtMogi.findByCargoLike("VEREADOR");
+		Iterable<Servidor> servidores = mtMogi.findByCargoLike("VEREADOR");
 
 		for (Servidor servidor : servidores) {
 			// Obtem a lista de salarios ordenados pela data, sendo o primeiro da lista o
@@ -71,7 +71,7 @@ public class MtmogiController {
 	@RequestMapping(value = "/servidores/prefeitura", method = RequestMethod.GET)
 	public ModelAndView getServidoresPrefeitura() {
 		ModelAndView mView = new ModelAndView("servidoresPrefeitura");
-		List<Servidor> servidores = mtMogi.findAll();
+		Iterable<Servidor> servidores = mtMogi.findAll();
 
 		mView.addObject("servidores", servidores);
 
@@ -81,10 +81,18 @@ public class MtmogiController {
     @RequestMapping(value="/servidores/camara", method=RequestMethod.GET)
     public ModelAndView getServidoresCamara() {
         ModelAndView mView = new ModelAndView("servidoresCamara");
-        List<Servidor> servidores = mtMogi.findByCargoLike("Servidor-Camara");
+        Iterable<Servidor> servidores = mtMogi.findByCargoLike("Servidor-Camara");
 
 		mView.addObject("servidores", servidores);
 
 		return mView;
 	}
+    
+	@RequestMapping(value = "/servidores/teste", method = RequestMethod.GET)
+	public ModelAndView getServidoresTeste() {
+		ModelAndView mView = new ModelAndView("teste");
+		
+		return mView;
+	}
+    
 }
