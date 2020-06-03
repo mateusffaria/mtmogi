@@ -1,10 +1,7 @@
 package br.com.mtmogi.mtmogi.controller;
 
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import br.com.mtmogi.mtmogi.dao.DataTablesDAO;
 import br.com.mtmogi.mtmogi.dto.ServidorSalarioDTO;
 import br.com.mtmogi.mtmogi.dto.ServidoresDTO;
 import br.com.mtmogi.mtmogi.service.ServiceImpl.MtmogiServiceImpl;
@@ -31,6 +29,9 @@ public class JsonController {
 	
 	@Autowired
 	MtmogiServiceImpl mService;
+	
+	@Autowired
+	DataTablesDAO DAODataTable;
 	
 	@RequestMapping(value = "/compare",method = RequestMethod.POST)
 	public @ResponseBody String upload(@RequestBody String payload, HttpSession session) {
@@ -59,11 +60,9 @@ public class JsonController {
 		
 		System.out.println(sortColIndex + order + col0DataAttrName);
 		
-		int totalServers = mService.totalServers();
-		
+		int totalServers = DAODataTable.countTotalServers();
 		ServidoresDTO servidores = new ServidoresDTO();
-		List<ServidorSalarioDTO> servidoresDto = builderServidorSalarioList(order, start, length);
-		
+		List<ServidorSalarioDTO> servidoresDto = DAODataTable.findServersWithPage(sortColIndex, order, start, length); 		
 		servidores.setData(servidoresDto);
 		servidores.setDraw(draw);
 		servidores.setRecordsFiltered(totalServers);
@@ -73,29 +72,4 @@ public class JsonController {
 		
 	}
 	
-	private List<ServidorSalarioDTO> builderServidorSalarioList(String order, int start, int length) {
-		
-		List<ServidorSalarioDTO> servidores = new ArrayList<ServidorSalarioDTO>();
-		
-		Iterator<Object> iterator = mService.findServersWithPage(order, start, length).iterator(); 
-				
-				while(iterator.hasNext()) {
-					
-					Object[] obj = (Object[]) iterator.next();
-					
-					ServidorSalarioDTO servidor = new ServidorSalarioDTO();
-					
-					Double salario = Double.valueOf(obj[4].toString());
-					
-					servidor.setId(Integer.valueOf(obj[0].toString()));
-					servidor.setCargo(obj[1].toString());
-					servidor.setNome(obj[2].toString());
-					servidor.setRgf(obj[3].toString());
-					servidor.setSalario(BigDecimal.valueOf(salario).setScale(2, RoundingMode.HALF_EVEN));
-					
-					servidores.add(servidor);
-				}
-				
-		return servidores;
-	}
 }
