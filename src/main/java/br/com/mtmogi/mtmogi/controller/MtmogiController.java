@@ -93,7 +93,7 @@ public class MtmogiController {
 	public ModelAndView getServidoresTeste() {
 		ModelAndView mView = new ModelAndView("teste");
 		
-		mView.addObject("typeServer", TipoServidor.PREFEITO);
+		mView.addObject("typeServer", TipoServidor.SERVIDORES_EM_GERAL);
 		
 		return mView;
 	}

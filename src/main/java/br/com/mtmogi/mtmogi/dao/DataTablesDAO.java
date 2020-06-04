@@ -126,21 +126,18 @@ public class DataTablesDAO {
 			String columName = null;
 			
 			switch (columIndex) {
-			case 0:	
+			case 1:	
 				columName = "nome";
 				break;
-			case 1:
+			case 2:
 				columName = "cargo";
 				break;
-			case 2:
+			case 3:
 				columName = "rgf";
 				break;
-			case 3:
+			case 4:
 				columName = "salario";
 				break;	
-			case 4:
-				columName = "desconto";
-				break;
 			default:
 				columName = "nome";
 				break;

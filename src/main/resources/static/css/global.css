@@ -107,3 +107,7 @@ body{
 .show-later{
 	display: none;
 }
+
+.dont-show{
+	display: none;
+}
