@@ -96,10 +96,18 @@ body{
 	text-align: center;
 }
 
+.left{
+	text-align: left;
+}
+
 .right{
 	text-align: right;
 }
 
 .show-later{
+	display: none;
+}
+
+.dont-show{
 	display: none;
 }

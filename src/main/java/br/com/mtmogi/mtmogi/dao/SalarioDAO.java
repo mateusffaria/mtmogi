@@ -16,7 +16,7 @@ public class SalarioDAO {
 	@PersistenceContext
 	private EntityManager em;
 
-	public List<SalarioDesconto> getSalaryAll() {
+	public Iterable<SalarioDesconto> getSalaryAll() {
 		TypedQuery<SalarioDesconto> query = em.createQuery("from SalarioDesconto", SalarioDesconto.class);
 
 		return query.getResultList();

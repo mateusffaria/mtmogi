@@ -59,11 +59,7 @@
 	<!-- Principal -->
     <div class="container">
         <h1 class="titulo">Salário do Prefeito e do Vice Prefeito</h1>
-		<div id="preloader" class="center">        	
-        	 <img src="/img/loading_01.gif"  alt="carregando" class="img-fluid">
-        	 <h4>Aguarde alguns instantes enquanto trazemos as informações ...</h4>
-        </div>
-        <div id="item-to-show" class="show-later">
+        <div id="item-to-show">
 			<!-- Compare button -->
 			<div class="form-group">
 				<div class="row">
@@ -75,28 +71,20 @@
 				</div>
 			</div>	
 			<!-- Table -->
-	        <table id="tabel" class="table table-striped table-hover">
+	        <table id="tabela" class="table table-striped table-hover">
 	            <thead class="thead-color">
 	              <tr class="bg-primary">
 	                <th scope="col">Histórico</th>
-	                <th scope="col">Nome do Servidor</th>
-	                <th scope="col" class="center">Último salário</th>
-	                <th scope="col">&nbsp;</th>
+	                <th scope="col">Nome do Servidor</th>	
+	                <th scope="col" class="center">Funçao</th>
+	                <th scope="col">RGF</th>
+	                <th scope="col" class="center">Último salário (R$)</th>
+	              	<th scope="col">&nbsp;</th>
 	              </tr>
 	            </thead>
-	            <tbody>
-	              <tr th:each="servidor : ${servidores}">
-	                <th scope="row">
-	                    &nbsp;&nbsp;&nbsp;
-	                    <a th:href="${(#mvc.url('SC#getHistoricoSalarial').arg(0,servidor.id)).build()}"><i class="material-icons">history</i></a>
-	                </th>
-	                <td><span th:text="${servidor.nome}"></span></td>
-	                <td class="center"><span th:text="|R$ ${servidor.salarios[0].valor}|"></span></td>
-	                <td class="center"><input class="form-check-input" type="checkbox" th:value="${servidor.id}" th:id="check" onClick="check()"></td>
-	              </tr>
-	            </tbody>
 	        </table>
         </div>
+        <input th:type="hidden" th:id="typeServer" th:value="${typeServer}">
     </div>
 
     <br><br><br><br><br><br><br><br>
@@ -115,8 +103,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 	<script th:src="@{/js/compare_wages.js}"></script>
-	<script th:src="@{/js/data_table.js}"></script>
-	<script th:src="@{/js/preloader.js}"></script>
+	<script th:src="@{/js/data_table_server_side.js}"></script>
 
 </body>
 </html>
