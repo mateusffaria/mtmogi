@@ -58,12 +58,4 @@ public class MtmogiServiceImpl implements MtmogiService {
     	return servers;
     }
     
-    public List<Object> findServersWithPage(String order, int start, int length){
-    	return mRepository.findServersWithPage(start, length);
-    } 
-    
-    public int totalServers() {
-    	return mRepository.totalServers();
-    }
-    
 }

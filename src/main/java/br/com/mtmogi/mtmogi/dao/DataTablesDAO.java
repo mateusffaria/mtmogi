@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import br.com.mtmogi.mtmogi.dto.ServidorSalarioDTO;
+import br.com.mtmogi.mtmogi.model.TipoServidor;
 
 @Repository
 @Transactional
@@ -31,15 +32,20 @@ public class DataTablesDAO {
 	 * @param length number of rows to be returned in the query
 	 * @return
 	 */
-	public List<ServidorSalarioDTO> findServersWithPage(int columnIndex, String order, int start, int length){
+	public List<ServidorSalarioDTO> findServersWithPage(String typeServer, int columnIndex, String order, int start, int length){
 		
 		String column = obtainColumName(columnIndex);
 		StringBuilder sb = new StringBuilder();
+		TipoServidor tipo = TipoServidor.valueOf(typeServer);
 		
 		sb.append("SELECT id, nome, cargo, rgf, salario, desconto ");
 		sb.append("FROM servidor as servidor ");
 		sb.append("LEFT JOIN vw_rendimento_servidor as rendimentos ON servidor.id = rendimentos.idservidor ");
 		sb.append("LEFT JOIN vw_desconto_servidor as descontos ON servidor.id = descontos.idservidor ");
+		sb.append("WHERE cargo ");
+		sb.append("ILIKE '%");
+		sb.append(tipo.getDescricao());
+		sb.append("%'");
 		sb.append("ORDER BY ");
 		sb.append(column);
 		sb.append(" ");
@@ -60,14 +66,20 @@ public class DataTablesDAO {
 	 * Method responsible for counting of the total records of a query
 	 * @return
 	 */
-	public int countTotalServers() {
+	public int countTotalServers(String typeServer) {
 		
 		StringBuilder sb = new StringBuilder();
+		TipoServidor tipo = TipoServidor.valueOf(typeServer);
 		
 		sb.append("SELECT COUNT(*) total ");
 		sb.append("FROM (SELECT * FROM servidor as servidor ");
 		sb.append("LEFT JOIN vw_rendimento_servidor as rendimentos ON servidor.id = rendimentos.idservidor ");
-		sb.append("LEFT JOIN vw_desconto_servidor as descontos ON servidor.id = descontos.idservidor) as resultado");
+		sb.append("LEFT JOIN vw_desconto_servidor as descontos ON servidor.id = descontos.idservidor ");
+		sb.append("WHERE cargo ");
+		sb.append("ILIKE '%");
+		sb.append(tipo.getDescricao());
+		sb.append("%'");
+		sb.append(") as resultado");
 		
 		Query query = em.createNativeQuery(sb.toString());
 		BigInteger total = (BigInteger) query.getSingleResult();

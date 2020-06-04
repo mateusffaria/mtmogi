@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,26 +51,27 @@ public class JsonController {
 		return "OK";
 	}
 
-	@GetMapping("/get/servers")
-	public ServidoresDTO getServer(@RequestParam("start") int start,
+	@GetMapping("/get/servers/{tipo}")
+	public ServidoresDTO getServer(@PathVariable("tipo") String tipo,
+			@RequestParam("start") int start,
 			@RequestParam("length") int length,
 			@RequestParam("draw") int draw,
 			@RequestParam("order[0][column]") int sortColIndex,
 			@RequestParam("order[0][dir]") String order,
 			@RequestParam("columns[0][data]") String col0DataAttrName) {
 		
-		System.out.println(sortColIndex + order + col0DataAttrName);
-		
-		int totalServers = DAODataTable.countTotalServers();
+		//instance of the necessary objects
+		int totalServers = DAODataTable.countTotalServers(tipo);
 		ServidoresDTO servidores = new ServidoresDTO();
-		List<ServidorSalarioDTO> servidoresDto = DAODataTable.findServersWithPage(sortColIndex, order, start, length); 		
+		List<ServidorSalarioDTO> servidoresDto = DAODataTable.findServersWithPage(tipo, sortColIndex, order, start, length); 
+		
+		//Sending data to table
 		servidores.setData(servidoresDto);
 		servidores.setDraw(draw);
 		servidores.setRecordsFiltered(totalServers);
 		servidores.setRecordsTotal(totalServers);
 		
-		return servidores;
-		
+		return servidores;		
 	}
 	
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import br.com.mtmogi.mtmogi.dao.SalarioDAO;
 import br.com.mtmogi.mtmogi.model.SalarioDesconto;
 import br.com.mtmogi.mtmogi.model.Servidor;
+import br.com.mtmogi.mtmogi.model.TipoServidor;
 import br.com.mtmogi.mtmogi.service.MtmogiService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -91,6 +92,8 @@ public class MtmogiController {
 	@RequestMapping(value = "/servidores/teste", method = RequestMethod.GET)
 	public ModelAndView getServidoresTeste() {
 		ModelAndView mView = new ModelAndView("teste");
+		
+		mView.addObject("typeServer", TipoServidor.PREFEITO);
 		
 		return mView;
 	}

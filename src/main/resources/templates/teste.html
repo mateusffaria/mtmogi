@@ -84,8 +84,9 @@
 	            </thead>
 	        </table>
      	</div>
+    	<input th:type="hidden" th:id="typeServer" th:value="${typeServer}">
     </div>
-
+	
     <br><br><br><br><br><br><br><br>
 
     <footer class="copyright">
@@ -102,73 +103,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 	<script th:src="@{/js/compare_wages.js}"></script>
-	
-	<script>
-		$(document).ready(function() {
-			var selected = [];
-			
-		    $('#tabela').DataTable( {
-		    	"searching": false,
-		        "processing": true,
-		        "serverSide": true,
-		        "filter": true, 
-		        "orderMulti": false,
-		        "ordering": true,
-	        	"select": true,
-		        "ajax": "/service/get/servers",
-		        "rowCallback": function( row, data ) {
-		            if ( $.inArray(data.DT_RowId, selected) !== -1 ) {
-		                $(row).addClass('selected');
-		            }
-		        },
-		        "columnDefs": [
-		            //Estilos Das Colunas
-		            { className: "left", "targets": [0] },
-		            { className: "left", "targets": [1] },
-		            { className: "center", "targets": [2] },
-		            { className: "center", "targets": [3], render: function(data){
-		                	return ("R$ " + data.toFixed(2));
-		                } 
-		            }
-		        ], 
-		        "columns": [
-		            { "data": "nome" },
-		            { "data": "cargo" },
-		            { "data": "rgf" },
-		            { "data": "salario" }
-		        ],
-		        "language": {
-		            "lengthMenu": "Mostrando _MENU_ registros por página",
-		            "loadingRecords": "Buscando...",
-		            "processing": "Carregando...",
-		            "zeroRecords": "Nenhum registro encontrado",
-		            "info": "Mostrando página _PAGE_ de _PAGES_ de um total de _TOTAL_ registros",
-		            "infoEmpty": "Nenhum registro disponível",
-		            "infoFiltered": "(filtrado a partir de _MAX_ registros)",
-		            "search": "Pesquisar",
-		            "searchPlaceholder": "Digite algo...",
-		            "paginate": {
-		                "previous": "Anterior",
-		                "next": "Próximo"
-		              }
-		        }
-		    });
-		    
-		    $('#example tbody').on('click', 'tr', function () {
-		        var id = this.id;
-		        var index = $.inArray(id, selected);
-		 
-		        if ( index === -1 ) {
-		            selected.push( id );
-		        } else {
-		            selected.splice( index, 1 );
-		        }
-		 
-		        $(this).toggleClass('selected');
-		    } );
-		    
-		} );
-	</script>
+	<script th:src="@{/js/data_table_server_side.js}"></script>
 	
 </body>
 </html>
