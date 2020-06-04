@@ -32,7 +32,7 @@ public class DataTablesDAO {
 	 * @param length number of rows to be returned in the query
 	 * @return
 	 */
-	public List<ServidorSalarioDTO> findServersWithPage(String typeServer, int columnIndex, String order, int start, int length){
+	public List<ServidorSalarioDTO> findServersWithPage(String typeServer, String search, int columnIndex, String order, int start, int length){
 		
 		String column = obtainColumName(columnIndex);
 		StringBuilder sb = new StringBuilder();
@@ -45,6 +45,15 @@ public class DataTablesDAO {
 		sb.append("WHERE cargo ");
 		sb.append("ILIKE '%");
 		sb.append(tipo.getDescricao());
+		sb.append("%' ");
+		sb.append("AND nome ILIKE '%");
+		sb.append(search);
+		sb.append("%'");
+		sb.append("OR cargo ILIKE '%");
+		sb.append(search);
+		sb.append("%'");
+		sb.append("OR rgf ILIKE '%");
+		sb.append(search);
 		sb.append("%'");
 		sb.append("ORDER BY ");
 		sb.append(column);
@@ -66,7 +75,7 @@ public class DataTablesDAO {
 	 * Method responsible for counting of the total records of a query
 	 * @return
 	 */
-	public int countTotalServers(String typeServer) {
+	public int countTotalServers(String typeServer, String search) {
 		
 		StringBuilder sb = new StringBuilder();
 		TipoServidor tipo = TipoServidor.valueOf(typeServer);
@@ -78,6 +87,15 @@ public class DataTablesDAO {
 		sb.append("WHERE cargo ");
 		sb.append("ILIKE '%");
 		sb.append(tipo.getDescricao());
+		sb.append("%'");
+		sb.append("AND nome ILIKE '%");
+		sb.append(search);
+		sb.append("%'");
+		sb.append("OR cargo ILIKE '%");
+		sb.append(search);
+		sb.append("%'");
+		sb.append("OR rgf ILIKE '%");
+		sb.append(search);
 		sb.append("%'");
 		sb.append(") as resultado");
 		

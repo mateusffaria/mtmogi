@@ -53,6 +53,7 @@ public class JsonController {
 
 	@GetMapping("/get/servers/{tipo}")
 	public ServidoresDTO getServer(@PathVariable("tipo") String tipo,
+			@RequestParam("search[value]") String search,
 			@RequestParam("start") int start,
 			@RequestParam("length") int length,
 			@RequestParam("draw") int draw,
@@ -60,10 +61,15 @@ public class JsonController {
 			@RequestParam("order[0][dir]") String order,
 			@RequestParam("columns[0][data]") String col0DataAttrName) {
 		
+		//string treatment
+		if(!search.isEmpty()) {
+			search = search.replaceAll("[^0-9a-záéíóúàèìòùâêîôûãõç\\s]", "");
+		}
+		
 		//instance of the necessary objects
-		int totalServers = DAODataTable.countTotalServers(tipo);
+		int totalServers = DAODataTable.countTotalServers(tipo, search);
 		ServidoresDTO servidores = new ServidoresDTO();
-		List<ServidorSalarioDTO> servidoresDto = DAODataTable.findServersWithPage(tipo, sortColIndex, order, start, length); 
+		List<ServidorSalarioDTO> servidoresDto = DAODataTable.findServersWithPage(tipo, search, sortColIndex, order, start, length); 
 		
 		//Sending data to table
 		servidores.setData(servidoresDto);
