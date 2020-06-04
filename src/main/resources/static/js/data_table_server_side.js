@@ -44,6 +44,8 @@ $(document).ready(function() {
 		        ],
 		        "language": {
 		            "lengthMenu": "Mostrando _MENU_ registros por página",
+		            "decimal": ",",
+		            "thousands": ".",
 		            "loadingRecords": "Buscando...",
 		            "processing": "Carregando...",
 		            "zeroRecords": "Nenhum registro encontrado",
