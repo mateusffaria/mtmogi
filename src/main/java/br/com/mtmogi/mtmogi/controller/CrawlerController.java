@@ -84,7 +84,7 @@ public class CrawlerController {
 			return "Não foi possível efetuar a atualização do banco, falha no processo de salvar";
 		}
 		
-		configuracaoTable();
+		configuracaoTable(generalInfoServ.getServidores().get(0).getRgf());
 		
 		System.out.println("Webcrawler concluido com sucesso");
 		
@@ -92,8 +92,8 @@ public class CrawlerController {
 	}
 
 	@GetMapping("/admin/config")
-	public @ResponseBody String configuracaoTable() {
-		String rgf = servidorRepositorio.findAll().stream().findFirst().get().getRgf();
+	public @ResponseBody String configuracaoTable(String servidor) {
+		String rgf = servidor;
 		System.out.println(rgf);
 		
 		  String detalhamentoSalario = restTemplate.getForObject(
