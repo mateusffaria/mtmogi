@@ -1,21 +1,15 @@
 package br.com.mtmogi.mtmogi.controller;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import com.google.gson.Gson;
-
 import br.com.mtmogi.mtmogi.dao.ConfiguracaoDAO;
 import br.com.mtmogi.mtmogi.dto.SalarioDescontosDTO;
 import br.com.mtmogi.mtmogi.dto.ServidorDTO;
@@ -48,7 +42,7 @@ public class CrawlerController {
 	private final ConfiguracaoDAO configuracaoDAO;
 
 	@GetMapping("/admin/force_update")
-	public @ResponseBody String crawler() throws ParseException {
+	public @ResponseBody String crawler(){
 		String todosColaboradores = restTemplate
 				.getForObject("http://www.licitacao.pmmc.com.br/Transparencia/vencimentos2", String.class);
 		String detalhamentoSalario = "";
@@ -60,14 +54,12 @@ public class CrawlerController {
 		GeneralInfoServidores generalInfoServ = jsonServidores.fromJson(todosColaboradores,
 				GeneralInfoServidores.class);
 		
-		
 		for (ServidorDTO servidor : generalInfoServ.getServidores()) {
 			Servidor servidorNovo = new Servidor();
 			servidorNovo.setCargo(servidor.getCargo());
 			servidorNovo.setNome(servidor.getNome());
 			servidorNovo.setRgf(servidor.getRgf());
 			todosServidores.add(servidorNovo);
-
 			detalhamentoSalario = restTemplate.getForObject(
 					"http://www.licitacao.pmmc.com.br/Transparencia/detalhamento?rgf=" + servidor.getRgf(),
 					String.class);
@@ -83,11 +75,14 @@ public class CrawlerController {
 			salarios.addAll(detalhamentoCompleto(servidorNovo, "OUTROS_DESCONTOS", generalInfoDeta.outros,
 					generalInfoDeta.regime, generalInfoDeta.referencia));
 			
-			System.out.println("Servidor salvo com sucesso!");
 		}
 		
-		servidorRepositorio.saveAll(todosServidores);
-		salarioRepositorio.saveAll(salarios);
+		try {
+			servidorRepositorio.saveAll(todosServidores);
+			salarioRepositorio.saveAll(salarios);
+		} catch (Exception e) {
+			return "Não foi possível efetuar a atualização do banco, falha no processo de salvar";
+		}
 		
 		configuracaoTable();
 		
@@ -97,7 +92,7 @@ public class CrawlerController {
 	}
 
 	@GetMapping("/admin/config")
-	public @ResponseBody String configuracaoTable() throws ParseException {
+	public @ResponseBody String configuracaoTable() {
 		String rgf = servidorRepositorio.findAll().stream().findFirst().get().getRgf();
 		System.out.println(rgf);
 		
