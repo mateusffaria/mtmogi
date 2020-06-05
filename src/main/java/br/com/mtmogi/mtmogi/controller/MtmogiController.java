@@ -57,13 +57,4 @@ public class MtmogiController {
 		return mView;
 	}
     
-	@RequestMapping(value = "/servidores/teste", method = RequestMethod.GET)
-	public ModelAndView getServidoresTeste() {
-		
-		ModelAndView mView = new ModelAndView("teste");
-		mView.addObject("typeServer", TipoServidor.SERVIDORES_EM_GERAL);
-		
-		return mView;
-	}
-    
 }
