@@ -27,7 +27,7 @@ public class MtmogiServiceImpl implements MtmogiService {
     }
 
     @Override
-    public List<Servidor> findAll() {
+    public Iterable<Servidor> findAll() {
         return mRepository.findAll();
     }
 
@@ -57,6 +57,4 @@ public class MtmogiServiceImpl implements MtmogiService {
     	 	
     	return servers;
     }
-    
-    
 }

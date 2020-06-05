@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name="SERVIDOR")
 public class Servidor{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank
@@ -48,11 +48,5 @@ public class Servidor{
     	
 		return null;
     }
-    
-	public String teste(){
-		
-		return"funfa";
-	}
-
 
 }
