@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import com.google.gson.Gson;
-import br.com.mtmogi.mtmogi.dao.ConfiguracaoDAO;
 import br.com.mtmogi.mtmogi.dto.SalarioDescontosDTO;
 import br.com.mtmogi.mtmogi.dto.ServidorDTO;
 import br.com.mtmogi.mtmogi.model.Configuracao;
-import br.com.mtmogi.mtmogi.model.SalarioDesconto;
+import br.com.mtmogi.mtmogi.model.Salario;
 import br.com.mtmogi.mtmogi.model.Servidor;
 import br.com.mtmogi.mtmogi.repository.ConfiguracaoRepository;
 import br.com.mtmogi.mtmogi.repository.MtmogiRepository;
-import br.com.mtmogi.mtmogi.repository.SalarioRepositorio;
+import br.com.mtmogi.mtmogi.repository.SalarioRepository;
+import br.com.mtmogi.mtmogi.service.ServiceImpl.ConfiguracaoServiceImpl;
 import br.com.mtmogi.mtmogi.utils.GeneralInfoServidores;
 import br.com.mtmogi.mtmogi.utils.GeneralJsonInfoSalario;
 import lombok.RequiredArgsConstructor;
@@ -34,19 +34,19 @@ public class CrawlerController {
 	private final MtmogiRepository servidorRepositorio;
 	
 	@Autowired
-	private final SalarioRepositorio salarioRepositorio;
+	private final SalarioRepository salarioRepositorio;
 	
 	@Autowired
 	private final ConfiguracaoRepository configuracaoRepositorio;
 	
-	private final ConfiguracaoDAO configuracaoDAO;
+	private final ConfiguracaoServiceImpl configuracao;
 
 	@GetMapping("/admin/force_update")
 	public @ResponseBody String crawler(){
 		String todosColaboradores = restTemplate
 				.getForObject("http://www.licitacao.pmmc.com.br/Transparencia/vencimentos2", String.class);
 		String detalhamentoSalario = "";
-		List<SalarioDesconto> salarios = new ArrayList<>();
+		List<Salario> salarios = new ArrayList<>();
 		List<Servidor> todosServidores = new ArrayList<>();
 		Gson jsonDetalhamento = new Gson();
 
@@ -80,18 +80,17 @@ public class CrawlerController {
 		try {
 			servidorRepositorio.saveAll(todosServidores);
 			salarioRepositorio.saveAll(salarios);
+			configuracaoTable(generalInfoServ.getServidores().get(0).getRgf());
 		} catch (Exception e) {
 			return "Não foi possível efetuar a atualização do banco, falha no processo de salvar";
 		}
 		
-		configuracaoTable(generalInfoServ.getServidores().get(0).getRgf());
 		
 		System.out.println("Webcrawler concluido com sucesso");
 		
 		return "WebCrawler concluído";
 	}
 
-	@GetMapping("/admin/config")
 	public @ResponseBody String configuracaoTable(String servidor) {
 		String rgf = servidor;
 		System.out.println(rgf);
@@ -112,19 +111,19 @@ public class CrawlerController {
 		if(configuracaoRepositorio.findAll().isEmpty()) {
 			configuracaoRepositorio.save(configRef);
 		} else {
-			configuracaoDAO.updateReferenciaAtual(configRef.getReferencia_atual(), configRef.getId());
+			configuracao.updateReferenciaAtual(configRef.getReferencia_atual(), configRef.getId());
 		}
 		
 		return "concluído";
 	}
 	
-	private List<SalarioDesconto> detalhamentoCompleto(Servidor servidorNovo, String tipo,
+	private List<Salario> detalhamentoCompleto(Servidor servidorNovo, String tipo,
 			List<SalarioDescontosDTO> generalInfoDeta, String regime, String referencia) {
 
-		List<SalarioDesconto> vencimentosDescontos = new ArrayList<SalarioDesconto>();
+		List<Salario> vencimentosDescontos = new ArrayList<Salario>();
 		if (!(generalInfoDeta == null)) {
 			for (SalarioDescontosDTO vencimentos : generalInfoDeta) {
-				SalarioDesconto vencimentosNovo = new SalarioDesconto();
+				Salario vencimentosNovo = new Salario();
 				vencimentosNovo.setRegime(regime);
 				vencimentosNovo.setDescricao(vencimentos.getNome());
 				vencimentosNovo.setValor(new BigDecimal(vencimentos.getValor().replace(".", "").replace(",", ".")));

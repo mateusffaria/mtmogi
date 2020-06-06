@@ -36,11 +36,11 @@ public class Servidor{
     private String rgf;
     
     @ElementCollection
-    @OneToMany(mappedBy="servidor", targetEntity = SalarioDesconto.class)
-    private List<SalarioDesconto> salarios;
+    @OneToMany(mappedBy="servidor", targetEntity = Salario.class)
+    private List<Salario> salarios;
     
     @Transient
-    public SalarioDesconto getSalarioAtual() {
+    public Salario getSalarioAtual() {
     	
     	if(salarios != null) {
     		return getSalarios().get(0);

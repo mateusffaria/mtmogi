@@ -2,10 +2,8 @@ package br.com.mtmogi.mtmogi.service.ServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.mtmogi.mtmogi.model.Servidor;
 import br.com.mtmogi.mtmogi.repository.MtmogiRepository;
 import br.com.mtmogi.mtmogi.service.MtmogiService;

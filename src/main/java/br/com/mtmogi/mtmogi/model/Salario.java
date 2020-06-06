@@ -27,7 +27,7 @@ import lombok.Setter;
 												"descricao","tipo","regime","referencia","valor","id"
 										})
 								})
-public class SalarioDesconto {
+public class Salario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

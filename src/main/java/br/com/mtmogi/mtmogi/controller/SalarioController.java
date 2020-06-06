@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import br.com.mtmogi.mtmogi.dao.SalarioDAO;
-import br.com.mtmogi.mtmogi.model.SalarioDesconto;
+import br.com.mtmogi.mtmogi.model.Salario;
 import br.com.mtmogi.mtmogi.model.Servidor;
 import br.com.mtmogi.mtmogi.service.ServiceImpl.MtmogiServiceImpl;
+import br.com.mtmogi.mtmogi.service.ServiceImpl.SalarioServiceImpl;
 
 @Controller
 public class SalarioController {
@@ -25,7 +25,7 @@ public class SalarioController {
 	MtmogiServiceImpl mtMogi;
 
 	@Autowired
-	SalarioDAO DAOSalario;
+	SalarioServiceImpl salario;
 
 	@RequestMapping(value = "/historico/{id}", method = RequestMethod.GET)
 	public ModelAndView getHistoricoSalarial(@PathVariable("id") Long id) {
@@ -33,8 +33,8 @@ public class SalarioController {
 		Servidor servidor = new Servidor();
 
 		servidor = mtMogi.findById(id);
-		List<SalarioDesconto> salarios = new ArrayList<SalarioDesconto>();
-		salarios = DAOSalario.getAllSalaryOfAServer(id);
+		List<Salario> salarios = new ArrayList<Salario>();
+		salarios = salario.getAllSalaryOfAServer(id);
 
 		mView.addObject("servidor", servidor);
 		mView.addObject("salarios", salarios);
@@ -62,11 +62,11 @@ public class SalarioController {
 
 			for (Servidor s : servers) {
 				salarios.put(s.getNome(),
-						DAOSalario.getAllGrossIncoming(s.getId()).stream().mapToDouble(BigDecimal::doubleValue).sum());
+						salario.getAllGrossIncoming(s.getId()).stream().mapToDouble(BigDecimal::doubleValue).sum());
 			}
 
 			for (Servidor s : servers) {
-				descontos.put(s.getNome(), DAOSalario.getAllDiscountSalary(s.getId()).stream()
+				descontos.put(s.getNome(), salario.getAllDiscountSalary(s.getId()).stream()
 						.mapToDouble(BigDecimal::doubleValue).sum());
 			}
 

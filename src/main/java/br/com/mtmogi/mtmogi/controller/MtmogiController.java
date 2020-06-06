@@ -2,7 +2,6 @@ package br.com.mtmogi.mtmogi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import br.com.mtmogi.mtmogi.dao.SalarioDAO;
 import br.com.mtmogi.mtmogi.model.TipoServidor;
 import br.com.mtmogi.mtmogi.service.MtmogiService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +13,6 @@ public class MtmogiController {
 
 	@Autowired
 	MtmogiService mtMogi;
-
-	@Autowired
-	SalarioDAO DAOSalario;
 
 	/**
 	 * @return
