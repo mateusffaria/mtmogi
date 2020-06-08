@@ -13,7 +13,7 @@ $(document).ready(function() {
 		        "rowCallback": function( row, data ) {
 		            if ( $.inArray(data.DT_RowId, selected) !== -1 ) {
 		                $(row).addClass('selected');
-		                $(row).attr("id", data.id_servidor);
+		                $(row).attr("id", data.nome);
 		            }
 		        },
 		        "columnDefs": [
@@ -29,10 +29,11 @@ $(document).ready(function() {
 		                	return ("R$ " + data.toFixed(2));
 		                } 
 		            },
-		            { className: "right", "orderable": false, "targets": [5], render: function(data){
-                		return '<td class="center"><input class="form-check-input" type="checkbox" value="'+data+'" id="check" onclick="check()"></td>';
-                	}
-                }
+		            { className: "right", "orderable": false, "targets": [5], render: function(row, data, index, context){
+		      
+                		 return '<button type="button" class="btn btn-link" onclick="addServer('+context.row+')" data-toggle="tooltip" data-placement="right" title="Adiciona servidor à lista de comparação de rendimentos"><i class="material-icons">add_box</i></button>';
+                		}
+		            }
 		        ], 
 		        "columns": [
 		        	{ "name": "historico", "data": "id" },

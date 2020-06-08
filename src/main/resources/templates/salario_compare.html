@@ -209,6 +209,13 @@
 	    	        
 	    	        }]
 		    		
+	    	    },
+	    	    tooltips: {
+	    	        callbacks: {
+	    	            label: function(tooltipItem, data) {
+	    	                return "R$ " + Number(tooltipItem.yLabel).toFixed(2);
+	    	            }
+	    	        }
 	    	    }
 	    	}
 		});
