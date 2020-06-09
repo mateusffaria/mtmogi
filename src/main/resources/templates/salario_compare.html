@@ -136,7 +136,7 @@
         <p> &copy; copyright 2020 MTMogi Group </p>
         <div class="footer-info">
             <div class="contact">
-                <a class="" href="/quem_somos">Quem somos</a>
+                <a class="" href="#">Quem somos</a>
             </div>
         </div>
     </footer>
@@ -209,6 +209,13 @@
 	    	        
 	    	        }]
 		    		
+	    	    },
+	    	    tooltips: {
+	    	        callbacks: {
+	    	            label: function(tooltipItem, data) {
+	    	                return "R$ " + Number(tooltipItem.yLabel).toFixed(2);
+	    	            }
+	    	        }
 	    	    }
 	    	}
 		});

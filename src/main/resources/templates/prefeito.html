@@ -63,10 +63,22 @@
 			<!-- Compare button -->
 			<div class="form-group">
 				<div class="row">
-				  <div class="col-lg-12">
-					<div class="right">
-						<button type="button" class="btn btn-primary btn-lg" onclick="getChecked()" >Comparar</button>  	
-				  	</div>
+				  <div class="col-lg-5 offset-md-7">
+				  	<div class="right" style="margin-right: 10px">
+						<a class="btn btn-light-lg" data-toggle="collapse" href="#collapseServers" role="button" aria-expanded="false" aria-controls="collapseServers">
+						    Selecionados 
+						</a>
+						<button type="button" class="btn btn-primary btn-lg" onclick="getChecked()" data-toggle="tooltip" data-placement="top" title="Compara os rendimentos de 2 a 4 servidores">Comparar</button>  	
+				  	</div>	
+				  	<div class="collapse" id="collapseServers">
+					  	<div class=".col-md-8 .offset-md-4">
+						  	<div class="card">
+							  <ul class="list-group list-group-flush right" id="selectedServers">
+							   	<li class="list-group-item center" id="standard_text"><i>Nenhum servidor selecionado</i></li>
+							  </ul>
+							</div>
+						</div>				    	    
+					</div>
 				  </div>
 				</div>
 			</div>	
