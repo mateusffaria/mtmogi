@@ -12,7 +12,8 @@
 	<artifactId>mtmogi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mtmogi</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Mtmogi - portal da transparencia</description>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
